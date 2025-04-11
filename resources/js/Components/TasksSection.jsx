@@ -1,9 +1,14 @@
 import AddNewBtn from "./AddNewBtn";
+import Modal from "@/Components/Modal";
+import SecondaryButton from "@/Components/SecondaryButton";
+import DangerButton from "@/Components/DangerButton";
+
 import TodoView from "./TodoView";
 import { useState } from "react";
 
 function TasksSection({ tasks, status }) {
     const [toggleAddBtn, setToggleAddBtn] = useState(false);
+
     const filtredList = tasks.filter((task) => task.status === status.value);
     console.log(toggleAddBtn);
     return (
@@ -27,79 +32,41 @@ function TasksSection({ tasks, status }) {
                     !toggleAddBtn ? (
                         <AddNewBtn toggleAddBtn={() => setToggleAddBtn(true)} />
                     ) : (
-                        <div
-                            class="relative z-10"
-                            aria-labelledby="modal-title"
-                            role="dialog"
-                            aria-modal="true"
-                        >
-                            {/*  Background backdrop, show/hide based on modal state.
+                        <Modal onClose={true} show={toggleAddBtn}>
+                            <form className="p-6">
+                                <h2 className="text-lg font-medium text-gray-900">
+                                    Are you sure you want to delete your
+                                    account?
+                                </h2>
 
-    Entering: "ease-out duration-300"
-      From: "opacity-0"
-      To: "opacity-100"
-    Leaving: "ease-in duration-200"
-      From: "opacity-100"
-      To: "opacity-0" */}
+                                <p className="mt-1 text-sm text-gray-600">
+                                    Once your account is deleted, all of its
+                                    resources and data will be permanently
+                                    deleted. Please enter your password to
+                                    confirm you would like to permanently delete
+                                    your account.
+                                </p>
 
-                            <div
-                                class="fixed inset-0 bg-gray-500/75 transition-opacity"
-                                aria-hidden="true"
-                            ></div>
+                                <div className="mt-6"></div>
 
-                            <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
-                                <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                                    {/* Modal panel, show/hide based on modal state.
-
-        Entering: "ease-out duration-300"
-          From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-          To: "opacity-100 translate-y-0 sm:scale-100"
-        Leaving: "ease-in duration-200"
-          From: "opacity-100 translate-y-0 sm:scale-100"
-          To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" */}
-
-                                    <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                                        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                                            <div class="sm:flex sm:items-start">
-                                                <form className="flex flex-col flex-grow space-y-3">
-                                                    <input
-                                                        className="  p-2  pr-8 border border-[#c4d0eb]  rounded-lg"
-                                                        type="text"
-                                                        placeholder="Search by title"
-                                                    />
-                                                    <textarea
-                                                        className="  p-2  pr-8 border border-[#c4d0eb] rounded-lg "
-                                                        placeholder="Description"
-                                                    ></textarea>
-                                                    {/*  <input
-                                    className="bg-[#202D48] py-2 px-3 ] rounded-lg text-white"
-                                    type="submit"
-                                    value="Add Task"
-                                /> */}
-                                                </form>
-                                            </div>
-                                        </div>
-                                        <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                                            <button
-                                                type="button"
-                                                class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-500 sm:ml-3 sm:w-auto"
-                                            >
-                                                Deactivate
-                                            </button>
-                                            <button
-                                                onClick={() =>
-                                                    setToggleAddBtn(false)
-                                                }
-                                                type="button"
-                                                class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                                            >
-                                                Cancel
-                                            </button>
-                                        </div>
-                                    </div>
+                                <div className="mt-6 flex justify-end space-x-2">
+                                    <button
+                                        onClick={() => setToggleAddBtn(false)}
+                                        type="button"
+                                        class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25"
+                                    >
+                                        Add Task
+                                    </button>
+                                    <button
+                                        onClick={() => setToggleAddBtn(false)}
+                                        type="button"
+                                        class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25"
+                                    >
+                                        Cancel
+                                    </button>
                                 </div>
-                            </div>
-                        </div>
+                            </form>
+                        </Modal>
 
                         /*   <div className="border-2 rounded-lg p-4 my-2 border-[#c4d0eb] bg-white">
                             <form className="flex flex-col flex-grow space-y-3">
@@ -128,7 +95,6 @@ function TasksSection({ tasks, status }) {
 export default TasksSection;
 
 {
-  
 }
 {
     /* <div className="border-2 rounded-lg p-4 my-2 border-[#c4d0eb] bg-white">
