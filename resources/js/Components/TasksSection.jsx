@@ -61,42 +61,22 @@ function TasksSection({ tasks, status }) {
                                     <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                                         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                                             <div class="sm:flex sm:items-start">
-                                                <div class="mx-auto flex size-12 shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:size-10">
-                                                    <svg
-                                                        class="size-6 text-red-600"
-                                                        fill="none"
-                                                        viewBox="0 0 24 24"
-                                                        stroke-width="1.5"
-                                                        stroke="currentColor"
-                                                        aria-hidden="true"
-                                                        data-slot="icon"
-                                                    >
-                                                        <path
-                                                            stroke-linecap="round"
-                                                            stroke-linejoin="round"
-                                                            d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"
-                                                        />
-                                                    </svg>
-                                                </div>
-                                                <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                                                    <h3
-                                                        class="text-base font-semibold text-gray-900"
-                                                        id="modal-title"
-                                                    >
-                                                        Deactivate account
-                                                    </h3>
-                                                    <div class="mt-2">
-                                                        <p class="text-sm text-gray-500">
-                                                            Are you sure you
-                                                            want to deactivate
-                                                            your account? All of
-                                                            your data will be
-                                                            permanently removed.
-                                                            This action cannot
-                                                            be undone.
-                                                        </p>
-                                                    </div>
-                                                </div>
+                                                <form className="flex flex-col flex-grow space-y-3">
+                                                    <input
+                                                        className="  p-2  pr-8 border border-[#c4d0eb]  rounded-lg"
+                                                        type="text"
+                                                        placeholder="Search by title"
+                                                    />
+                                                    <textarea
+                                                        className="  p-2  pr-8 border border-[#c4d0eb] rounded-lg "
+                                                        placeholder="Description"
+                                                    ></textarea>
+                                                    {/*  <input
+                                    className="bg-[#202D48] py-2 px-3 ] rounded-lg text-white"
+                                    type="submit"
+                                    value="Add Task"
+                                /> */}
+                                                </form>
                                             </div>
                                         </div>
                                         <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
@@ -148,7 +128,7 @@ function TasksSection({ tasks, status }) {
 export default TasksSection;
 
 {
-    /*  */
+  
 }
 {
     /* <div className="border-2 rounded-lg p-4 my-2 border-[#c4d0eb] bg-white">
