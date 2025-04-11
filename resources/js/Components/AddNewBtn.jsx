@@ -1,7 +1,10 @@
-function AddNewBtn() {
+function AddNewBtn({ toggleAddBtn }) {
     return (
         <div className="flex">
-            <button className="flex flex-grow  items-center border-2 border-dotted  border-gray-300 py-2 px-3 rounded-lg text-black font-extrabold">
+            <button
+                className="flex flex-grow  items-center border-2 border-dotted  border-gray-300 py-2 px-3 rounded-lg text-black font-extrabold"
+                onClick={toggleAddBtn}
+            >
                 <img
                     className="w-5 h-5 text-white m-2 "
                     src="https://www.svgrepo.com/show/71781/plus.svg"
