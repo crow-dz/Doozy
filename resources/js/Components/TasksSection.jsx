@@ -10,7 +10,7 @@ function TasksSection({ tasks, status }) {
 
     return (
         <div>
-            <h2 className="flex items-center  justify-start text-lg font-medium text-gray-900 mb-2">
+            <h2 className="flex items-center  justify-start text-lg font-medium text-gray-900 mb-2 ">
                 <div
                     className="h-3 w-3 rounded-full  mr-2"
                     style={{ backgroundColor: status.color }}
@@ -20,15 +20,23 @@ function TasksSection({ tasks, status }) {
                 </p>
             </h2>
 
-            <div className="bg-[#f2f6ff] rounded-lg shadow overflow-hidden p-4">
+            <div className="bg-[#f2f6ff] rounded-lg shadow overflow-hidden p-4 h-full">
                 <ul className="divide-y divide-gray-200">
-                    {filtredList.map((task) => (
-                        <TodoView
-                            key={task.id}
-                            data={task}
-                            onEdit={() => setEditTask(task)}
-                        />
-                    ))}
+                    {filtredList.length > 0 ? (
+                        filtredList.map((task) => (
+                            <TodoView
+                                key={task.id}
+                                data={task}
+                                onEdit={() => setEditTask(task)}
+                            />
+                        ))
+                    ) : (
+                        <div className="p-10">
+                            <h2 className="text-center text-gray-400">
+                                There is no tasks in this section.
+                            </h2>
+                        </div>
+                    )}
                 </ul>
 
                 {status.value === "toStart" && !addingNew && (

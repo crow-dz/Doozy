@@ -13,11 +13,16 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $allTask = Task::all();
+        $user = auth()->user();
+        $query = Task::where('user_id', $user->id);
+        if ($request->has('search')) {
+            $query->where('title', 'like', '%' . $request->search . '%');
+        }
+        $tasks = $query->get();
         return Inertia::render('Todos/Index', [
-            'tasks' => $allTask
+            'tasks' => $tasks
         ]);
     }
 

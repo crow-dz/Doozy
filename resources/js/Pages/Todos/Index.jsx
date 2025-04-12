@@ -1,6 +1,23 @@
+import Footer from "@/Components/Footer";
 import TasksSection from "@/Components/TasksSection";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { router } from "@inertiajs/react";
+import { useState } from "react";
 function Todos({ tasks }) {
+    const [searchText, setSearchText] = useState("");
+
+    const handleSearch = (e) => {
+        const value = e.target.value;
+        setSearchText(value);
+        router.get(
+            route("task.index"),
+            { search: value },
+            {
+                preserveState: true,
+                replace: true,
+            }
+        );
+    };
     return (
         <AuthenticatedLayout
             header={
@@ -9,32 +26,28 @@ function Todos({ tasks }) {
                         <div>
                             <div className="flex justify-between items-center">
                                 <h2 className="text-xl font-extrabold leading-tight text-gray-800">
-                                    My Todo
+                                    My Tasks
                                 </h2>
-                                <button className=" flex items-center bg-[#202D48] py-2 px-3 border border-[#202D48] rounded text-white">
-                                    <img
-                                        className="w-5 h-5 text-white mr-2 invert"
-                                        src="https://www.svgrepo.com/show/71781/plus.svg"
-                                        alt="add todo"
-                                    />
-                                    Create Todo
-                                </button>
                             </div>
                             <div className="flex justify-between mt-4">
                                 {/* Task Search Input by title*/}
                                 <div className="flex justify-between items-center">
-                                    <div className="relative ">
-                                        <input
-                                            className="  p-2  pr-8 border border-gray-300 rounded-md "
-                                            type="text"
-                                            placeholder="Search by title"
-                                        />
-                                        <img
-                                            className="absolute top-3 right-2  w-5 h-5  "
-                                            src="/images/clipart2603165.png"
-                                            alt=""
-                                        />
-                                    </div>
+                                    <form onSubmit={handleSearch}>
+                                        <div className="relative ">
+                                            <input
+                                                className="  p-2  pr-8 border border-gray-300 rounded-md "
+                                                type="text"
+                                                placeholder="Search by title"
+                                                value={searchText}
+                                                onChange={handleSearch}
+                                            />
+                                            <img
+                                                className="absolute top-3 right-2  w-5 h-5  "
+                                                src="/images/clipart2603165.png"
+                                                alt=""
+                                            />
+                                        </div>
+                                    </form>
                                 </div>
                                 <div className="flex flex-row justify-between space-x-2">
                                     {/* Task Search Input by date*/}
@@ -74,9 +87,9 @@ function Todos({ tasks }) {
             }
         >
             <div className="bg-img  ">
-                <div className="py-12">
+                <div className="py-4">
                     <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                        <div className="grid grid-cols-3 space-x-5">
+                        <div className="grid grid-cols-1 space-x-5 sm:grid-cols-3">
                             <TasksSection
                                 tasks={tasks}
                                 status={{
@@ -105,6 +118,7 @@ function Todos({ tasks }) {
                     </div>
                 </div>
             </div>
+            <Footer />
         </AuthenticatedLayout>
     );
 }

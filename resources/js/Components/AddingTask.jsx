@@ -1,13 +1,14 @@
 import Modal from "@/Components/Modal";
-import { useForm } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
 import InputError from "@/Components/InputError";
 
 function TaskFormModel({ show, onClose, mode = "add", task = null }) {
+    const user = usePage().props.auth.user;
     const { data, setData, post, put, processing, errors, reset } = useForm({
         title: task?.title || "",
         content: task?.content || "",
         status: task?.status || "toStart",
-        user_id: task?.user_id || 1,
+        user_id: task?.user_id || user.id,
     });
 
     const submit = (e) => {
@@ -62,6 +63,27 @@ function TaskFormModel({ show, onClose, mode = "add", task = null }) {
                         ></textarea>
                         <InputError message={errors.content} className="mt-2" />
                     </div>
+                    {mode === "edit" && (
+                        <div className="flex flex-row">
+                            <select
+                                id="status"
+                                name="status"
+                                value={data.status}
+                                onChange={(e) =>
+                                    setData("status", e.target.value)
+                                }
+                                className="  p-2  pr-8 border border-[#c4d0eb] rounded-lg "
+                            >
+                                <option value="toStart">To Start</option>
+                                <option value="inProgress">In Progress</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                            <InputError
+                                message={errors.status}
+                                className="mt-2"
+                            />
+                        </div>
+                    )}
                 </div>
 
                 <div className="mt-6 flex justify-end space-x-2">
