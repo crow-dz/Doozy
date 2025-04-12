@@ -1,8 +1,7 @@
 import Dropdown from "@/Components/Dropdown";
 import { useState } from "react";
-function TodoView({ data }) {
-    const [showingNavigationDropdown, setShowingNavigationDropdown] =
-        useState(false);
+import TaskFormModel from "./AddingTask";
+function TodoView({ data, onEdit }) {
     return (
         <div className="border-2 rounded-lg p-4 my-2 border-[#c4d0eb] bg-white">
             <div className="flex justify-between items-center">
@@ -26,13 +25,25 @@ function TodoView({ data }) {
                             </Dropdown.Trigger>
 
                             <Dropdown.Content>
-                                <Dropdown.Link>Edit</Dropdown.Link>
-                                <Dropdown.Link>Delete</Dropdown.Link>
+                                <button
+                                    onClick={onEdit}
+                                    className="w-full px-4 py-2 text-start text-sm rounded-lg leading-5 text-gray-700 transition duration-150 ease-in-out hover:bg-[#f2f6ff] focus:bg-gray-100 focus:outline-none"
+                                >
+                                    Edit
+                                </button>
+
+                                <Dropdown.Link
+                                    href={route("task.destroy", data.id)}
+                                    method="delete"
+                                >
+                                    Delete
+                                </Dropdown.Link>
                             </Dropdown.Content>
                         </Dropdown>
                     </div>
                 </div>
             </div>
+
             <p className="my-3 text-gray-500">{data.content}</p>
             <p className="text-gray-500">
                 {new Date(data.created_at).toLocaleDateString("en-GB")}

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class TaskController extends Controller
@@ -31,9 +32,17 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreTaskRequest $request)
+    public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            'title' => 'required|min:8',
+            'content' => 'required|min:8',
+            'status' => 'required',
+            'user_id' => 'required',
+        ]);
+        Task::create($request->all());
+
     }
 
     /**
@@ -55,16 +64,23 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateTaskRequest $request, Task $task)
+    public function update(Request $request, $id)
     {
-        //
+        $task = Task::find($id);
+        $request->validate([
+            'title' => 'required|min:8',
+            'content' => 'required|min:8',
+            'status' => 'required',
+            'user_id' => 'required',
+        ]);
+        $task->update($request->all());
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Task $task)
+    public function destroy($id): void
     {
-        //
+        Task::find($id)->delete();
     }
 }

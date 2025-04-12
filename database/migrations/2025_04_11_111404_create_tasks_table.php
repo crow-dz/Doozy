@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string('title');
             $table->text('content');
             $table->string('status')->default('toStart');
-            $table->dateTime('create_at');
+            $table->dateTime('create_at')->nullable();
             $table->dateTime('stared_at')->nullable();
             $table->dateTime('ended_at')->nullable();
             $table->timestamps();
